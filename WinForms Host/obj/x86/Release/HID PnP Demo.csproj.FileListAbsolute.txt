@@ -1,0 +1,10 @@
+C:\Microchip Solutions v2011-06-02\USB\g_c_lab2\g_c_host\bin\x86\Release\HID PnP Demo.exe.config
+C:\Microchip Solutions v2011-06-02\USB\g_c_lab2\g_c_host\bin\x86\Release\HID PnP Demo.exe
+C:\Microchip Solutions v2011-06-02\USB\g_c_lab2\g_c_host\bin\x86\Release\HID PnP Demo.pdb
+C:\Microchip Solutions v2011-06-02\USB\g_c_lab2\g_c_host\obj\x86\Release\HID PnP Demo.csprojAssemblyReference.cache
+C:\Microchip Solutions v2011-06-02\USB\g_c_lab2\g_c_host\obj\x86\Release\HID_PnP_Demo.Form1.resources
+C:\Microchip Solutions v2011-06-02\USB\g_c_lab2\g_c_host\obj\x86\Release\HID_PnP_Demo.Properties.Resources.resources
+C:\Microchip Solutions v2011-06-02\USB\g_c_lab2\g_c_host\obj\x86\Release\HID PnP Demo.csproj.GenerateResource.cache
+C:\Microchip Solutions v2011-06-02\USB\g_c_lab2\g_c_host\obj\x86\Release\HID PnP Demo.csproj.CoreCompileInputs.cache
+C:\Microchip Solutions v2011-06-02\USB\g_c_lab2\g_c_host\obj\x86\Release\HID PnP Demo.exe
+C:\Microchip Solutions v2011-06-02\USB\g_c_lab2\g_c_host\obj\x86\Release\HID PnP Demo.pdb
