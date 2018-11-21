@@ -731,9 +731,10 @@ void ProcessIO(void)
                     }
                 }
                 break;
-            case 0x81:  //Get push button state
+           
+			 case 0x81:  //Get push button state
                 ToSendDataBuffer[0] = 0x81;				//Echo back to the host PC the command we are fulfilling in the first byte.  In this case, the Get Pushbutton State command.
-				if(sw3 == 1)							//pushbutton not pressed, pull up resistor on circuit board is pulling the PORT pin high
+				if(sw1 == 1)							//pushbutton not pressed, pull up resistor on circuit board is pulling the PORT pin high
 				{
 					ToSendDataBuffer[1] = 0x01;			
 				}
@@ -741,13 +742,41 @@ void ProcessIO(void)
 				{
 					ToSendDataBuffer[1] = 0x00;
 				}
+				if(sw2 == 1)							//pushbutton not pressed, pull up resistor on circuit board is pulling the PORT pin high
+				{
+					ToSendDataBuffer[2] = 0x01;			
+				}
+				else									//sw3 must be == 0, pushbutton is pressed and overpowering the pull up resistor
+				{
+					ToSendDataBuffer[2] = 0x00;
+				}
+				if(sw3 == 1)							//pushbutton not pressed, pull up resistor on circuit board is pulling the PORT pin high
+				{
+					ToSendDataBuffer[3] = 0x01;			
+				}
+				else									//sw3 must be == 0, pushbutton is pressed and overpowering the pull up resistor
+				{
+					ToSendDataBuffer[3] = 0x00;
+				}
+				if(sw4 == 1)							//pushbutton not pressed, pull up resistor on circuit board is pulling the PORT pin high
+				{
+					ToSendDataBuffer[4] = 0x01;			
+				}
+				else									//sw3 must be == 0, pushbutton is pressed and overpowering the pull up resistor
+				{
+					ToSendDataBuffer[4] = 0x00;
+				}
+
                 if(!HIDTxHandleBusy(USBInHandle))
                 {
                     USBInHandle = HIDTxPacket(HID_EP,(BYTE*)&ToSendDataBuffer[0],64);
                 }
                 break;
 
-            case 0x37:	//Read POT command.  Uses ADC to measure an analog voltage on one of the ANxx I/O pins, and returns the result to the host
+
+
+
+			case 0x37:	//Read POT command.  Uses ADC to measure an analog voltage on one of the ANxx I/O pins, and returns the result to the host
                 {
                     WORD_VAL w;
 

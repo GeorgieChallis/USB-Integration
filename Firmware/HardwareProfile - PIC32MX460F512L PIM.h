@@ -109,11 +109,17 @@
     #define mLED_4_Toggle()     mLED_4 = !mLED_4;
     
     /** SWITCH *********************************************************/
-    #define mInitSwitch2()      TRISDbits.TRISD6=1;
-    #define mInitSwitch3()      TRISDbits.TRISD7=1;
-    #define mInitAllSwitches()  mInitSwitch2();mInitSwitch3();
-    #define sw2                 PORTDbits.RD6
-    #define sw3                 PORTDbits.RD7
+    #define mInitSwitch1()		TRISDbits.TRISD6=1;
+	#define mInitSwitch2()		TRISDbits.TRISD7=1;
+	#define mInitSwitch3()		TRISAbits.TRISA7=1;
+	#define mInitSwitch4()		TRISDbits.TRISD13=1;
+
+    #define mInitAllSwitches()  mInitSwitch1();mInitSwitch2();mInitSwitch3();mInitSwitch4();
+
+	#define sw1					PORTDbits.RD6
+    #define sw2                 PORTDbits.RD7
+    #define sw3                 PORTAbits.RA7
+	#define sw4					PORTDbits.RD13
 
     /** POT ************************************************************/
     #define mInitPOT()  {AD1PCFGbits.PCFG5 = 0;    AD1CON2bits.VCFG = 0x0;    AD1CON3bits.ADCS = 0xFF;    AD1CON1bits.SSRC = 0x0;    AD1CON3bits.SAMC = 0x10;    AD1CON1bits.FORM = 0x0;    AD1CON2bits.SMPI = 0x0;    AD1CON1bits.ADON = 1;}

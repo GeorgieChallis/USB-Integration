@@ -274,8 +274,11 @@ namespace HID_PnP_Demo
 
 
 	    //Variables used by the application/form updates.
-	    bool PushbuttonPressed = false;		//Updated by ReadWriteThread, read by FormUpdateTimer tick handler (needs to be atomic)
-	    bool ToggleLEDsPending = false;		//Updated by ToggleLED(s) button click event handler, used by ReadWriteThread (needs to be atomic)
+	    bool PushbuttonPressed = false;     //Updated by ReadWriteThread, read by FormUpdateTimer tick handler (needs to be atomic)
+        bool Pushbutton2Pressed = false;
+        bool Pushbutton3Pressed = false;
+        bool Pushbutton4Pressed = false;
+        bool ToggleLEDsPending = false;		//Updated by ToggleLED(s) button click event handler, used by ReadWriteThread (needs to be atomic)
 	    uint ADCValue = 0;			//Updated by ReadWriteThread, read by FormUpdateTimer tick handler (needs to be atomic)
 
         //Globally Unique Identifier (GUID) for HID class devices.  Windows uses GUIDs to identify things.
@@ -687,8 +690,9 @@ namespace HID_PnP_Demo
 		    Byte[] INBuffer = new byte[65];		//Allocate a memory buffer equal to the IN endpoint size + 1
 		    uint BytesWritten = 0;
 		    uint BytesRead = 0;
+            int requestedButton = 1;
 
-		    while(true)
+            while (true)
 		    {
                 try
                 {
@@ -725,8 +729,16 @@ namespace HID_PnP_Demo
 
 
                         //Get the pushbutton state from the microcontroller firmware.
-                        OUTBuffer[0] = 0;			//The first byte is the "Report ID" and does not get sent over the USB bus.  Always set = 0.
-                        OUTBuffer[1] = 0x81;		//0x81 is the "Get Pushbutton State" command in the firmware
+                        OUTBuffer[0] = 0;   //The first byte is the "Report ID" and does not get sent over the USB bus.  Always set = 0.
+
+                        OUTBuffer[1] = 0x81; //0x81 is the "Get Pushbutton State" command in the firmware
+
+                    //    OUTBuffer[2] = 0x82;
+                       
+                     //   OUTBuffer[3] = 0x83;
+
+                    //    OUTBuffer[4] = 0x84;
+                        
                         for (uint i = 2; i < 65; i++)	//This loop is not strictly necessary.  Simply initializes unused bytes to
                             OUTBuffer[i] = 0xFF;				//0xFF for lower EMI and power consumption when driving the USB cable.
 
@@ -741,14 +753,21 @@ namespace HID_PnP_Demo
                                     //INBuffer[0] is the report ID, which we don't care about.
                                     //INBuffer[1] is an echo back of the command (see microcontroller firmware).
                                     //INBuffer[2] contains the I/O port pin value for the pushbutton (see microcontroller firmware).  
-                                    if ((INBuffer[1] == 0x81) && (INBuffer[2] == 0x01))
-                                    {
-                                        PushbuttonPressed = false;
+                                    if (INBuffer[1] == 0x81) {
+                                        if (INBuffer[2] == 0x01) PushbuttonPressed = false;
+                                        else if (INBuffer[2] == 0x00) PushbuttonPressed = true;
+
+                                        if (INBuffer[3] == 0x01) Pushbutton2Pressed = false;
+                                        else if (INBuffer[3] == 0x00) Pushbutton2Pressed = true;
+
+                                        if (INBuffer[4] == 0x01) Pushbutton3Pressed = false;
+                                        else if (INBuffer[4] == 0x00) Pushbutton3Pressed = true;
+
+                                        if (INBuffer[5] == 0x01) Pushbutton4Pressed = false;
+                                        else if (INBuffer[5] == 0x00) Pushbutton4Pressed = true;
                                     }
-                                    if ((INBuffer[1] == 0x81) && (INBuffer[2] == 0x00))
-                                    {
-                                        PushbuttonPressed = true;
-                                    }
+                                        
+
                                 }
                             }
                         }
@@ -806,6 +825,9 @@ namespace HID_PnP_Demo
                 //Device is connected and ready to communicate, enable user interface on the form 
                 StatusBox_txtbx.Text = "Device Found: AttachedState = TRUE";
                 PushbuttonState_lbl.Enabled = true;	//Make the label no longer greyed out
+                label1.Enabled = true;
+                label2.Enabled = true;
+                label3.Enabled = true;
                 ANxVoltage_lbl.Enabled = true;
                 ToggleLEDs_btn.Enabled = true;
             }
@@ -826,11 +848,14 @@ namespace HID_PnP_Demo
             if (AttachedState == true)
             {
                 //Update the pushbutton state label.
-                if (PushbuttonPressed == false)
-                    PushbuttonState_lbl.Text = "Pushbutton State: Not Pressed";		//Update the pushbutton state text label on the form, so the user can see the result 
-                else
-                    PushbuttonState_lbl.Text = "Pushbutton State: Pressed";			//Update the pushbutton state text label on the form, so the user can see the result 
-
+                if (PushbuttonPressed == false) { PushbuttonState_lbl.Text = "Pushbutton State: Not Pressed"; }	//Update the pushbutton state text label on the form, so the user can see the result 
+                else { PushbuttonState_lbl.Text = "Pushbutton State: Pressed"; }			//Update the pushbutton state text label on the form, so the user can see the result 
+                if (Pushbutton2Pressed == false) { label1.Text = "Pushbutton2 State: Not Pressed"; }
+                else { label1.Text = "Pushbutton2 State: Pressed"; }
+                if (Pushbutton3Pressed == false) { label2.Text = "Pushbutton3 State: Not Pressed"; }
+                else { label2.Text = "Pushbutton3 State: Pressed"; }
+                if (Pushbutton4Pressed == false) { label3.Text = "Pushbutton4 State: Not Pressed"; }
+                else { label3.Text = "Pushbutton4 State: Pressed"; }
                 //Update the ANxx/POT Voltage indicator value (progressbar)
                 progressBar1.Value = (int)ADCValue;
             }
@@ -885,6 +910,11 @@ namespace HID_PnP_Demo
                 }
                 return false;
             }
+        }
+
+        private void progressBar1_Click(object sender, EventArgs e)
+        {
+
         }
         //-------------------------------------------------------END CUT AND PASTE BLOCK-------------------------------------------------------------------------------------
         //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
