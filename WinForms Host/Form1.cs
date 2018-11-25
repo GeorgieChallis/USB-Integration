@@ -92,6 +92,8 @@ using System.Windows.Forms;
 using Microsoft.Win32.SafeHandles;
 using System.Runtime.InteropServices;
 using System.Threading;
+using System.IO;
+using System.Media;
 
 
 namespace HID_PnP_Demo
@@ -279,7 +281,24 @@ namespace HID_PnP_Demo
         bool Pushbutton3Pressed = false;
         bool Pushbutton4Pressed = false;
         bool ToggleLEDsPending = false;		//Updated by ToggleLED(s) button click event handler, used by ReadWriteThread (needs to be atomic)
-	    uint ADCValue = 0;			//Updated by ReadWriteThread, read by FormUpdateTimer tick handler (needs to be atomic)
+	    uint ADCValue = 0;          //Updated by ReadWriteThread, read by FormUpdateTimer tick handler (needs to be atomic)
+
+
+        static string soundLocationC = Path.GetFullPath("Properties/C.wav"); 
+        SoundPlayer playerC = new SoundPlayer(soundLocationC);
+
+        static string soundLocationD = Path.GetFullPath("Properties/D.wav");
+        SoundPlayer playerD = new SoundPlayer(soundLocationD);
+
+        static string soundLocationE = Path.GetFullPath("Properties/E.wav"); 
+        SoundPlayer playerE = new SoundPlayer(soundLocationE);
+
+        static string soundLocationG = Path.GetFullPath("Properties/G.wav");
+        SoundPlayer playerG = new SoundPlayer(soundLocationG);
+
+
+
+
 
         //Globally Unique Identifier (GUID) for HID class devices.  Windows uses GUIDs to identify things.
         Guid InterfaceClassGuid = new Guid(0x4d1e55b2, 0xf16f, 0x11cf, 0x88, 0xcb, 0x00, 0x11, 0x11, 0x00, 0x00, 0x30); 
@@ -303,7 +322,7 @@ namespace HID_PnP_Demo
             ANxVoltageToolTip.SetToolTip(this.ANxVoltage_lbl, "If using a board/PIM without a potentiometer, apply an adjustable voltage to the I/O pin.");
             ANxVoltageToolTip.SetToolTip(this.progressBar1, "If using a board/PIM without a potentiometer, apply an adjustable voltage to the I/O pin.");
             ToggleLEDToolTip.SetToolTip(this.ToggleLEDs_btn, "Sends a packet of data to the USB device.");
-            PushbuttonStateTooltip.SetToolTip(this.PushbuttonState_lbl, "Try pressing pushbuttons on the USB demo board/PIM.");
+         //   PushbuttonStateTooltip.SetToolTip(this.PushbuttonState_lbl, "Try pressing pushbuttons on the USB demo board/PIM.");
 
             //Register for WM_DEVICECHANGE notifications.  This code uses these messages to detect plug and play connection/disconnection events for USB devices
             DEV_BROADCAST_DEVICEINTERFACE DeviceBroadcastHeader = new DEV_BROADCAST_DEVICEINTERFACE();
@@ -690,7 +709,6 @@ namespace HID_PnP_Demo
 		    Byte[] INBuffer = new byte[65];		//Allocate a memory buffer equal to the IN endpoint size + 1
 		    uint BytesWritten = 0;
 		    uint BytesRead = 0;
-            int requestedButton = 1;
 
             while (true)
 		    {
@@ -824,10 +842,6 @@ namespace HID_PnP_Demo
             {
                 //Device is connected and ready to communicate, enable user interface on the form 
                 StatusBox_txtbx.Text = "Device Found: AttachedState = TRUE";
-                PushbuttonState_lbl.Enabled = true;	//Make the label no longer greyed out
-                label1.Enabled = true;
-                label2.Enabled = true;
-                label3.Enabled = true;
                 ANxVoltage_lbl.Enabled = true;
                 ToggleLEDs_btn.Enabled = true;
             }
@@ -835,11 +849,9 @@ namespace HID_PnP_Demo
             {
                 //Device not available to communicate. Disable user interface on the form.
                 StatusBox_txtbx.Text = "Device Not Detected: Verify Connection/Correct Firmware";
-                PushbuttonState_lbl.Enabled = false;	//Make the label no longer greyed out
+                //Make the label no longer greyed out
                 ANxVoltage_lbl.Enabled = false;
                 ToggleLEDs_btn.Enabled = false;
-
-                PushbuttonState_lbl.Text = "Pushbutton State: Unknown";
                 ADCValue = 0;
                 progressBar1.Value = 0;
             }
@@ -847,15 +859,44 @@ namespace HID_PnP_Demo
             //Update the various status indicators on the form with the latest info obtained from the ReadWriteThread()
             if (AttachedState == true)
             {
+                // Beeps: https://docs.microsoft.com/en-us/dotnet/api/system.console.beep?view=netframework-4.7.2
                 //Update the pushbutton state label.
-                if (PushbuttonPressed == false) { PushbuttonState_lbl.Text = "Pushbutton State: Not Pressed"; }	//Update the pushbutton state text label on the form, so the user can see the result 
-                else { PushbuttonState_lbl.Text = "Pushbutton State: Pressed"; }			//Update the pushbutton state text label on the form, so the user can see the result 
-                if (Pushbutton2Pressed == false) { label1.Text = "Pushbutton2 State: Not Pressed"; }
-                else { label1.Text = "Pushbutton2 State: Pressed"; }
-                if (Pushbutton3Pressed == false) { label2.Text = "Pushbutton3 State: Not Pressed"; }
-                else { label2.Text = "Pushbutton3 State: Pressed"; }
-                if (Pushbutton4Pressed == false) { label3.Text = "Pushbutton4 State: Not Pressed"; }
-                else { label3.Text = "Pushbutton4 State: Pressed"; }
+                if (PushbuttonPressed == false) {
+                    button_C.BackColor = Color.White;
+                }	
+                else {
+                    button_C.BackColor = Color.Cyan;
+                    //set audio stream to note 1
+                    playerC.Play();
+                    //Console.Beep(262, 400); //Note C, quarter note
+                }	
+
+                if (Pushbutton2Pressed == false) {
+                    button_D.BackColor = Color.White;
+                }
+                else {
+                    button_D.BackColor = Color.Cyan;
+                    //set audio stream to note 2
+                    playerD.Play();
+                    //Console.Beep(294, 400); //Note D, quarter note
+                }
+                if (Pushbutton3Pressed == false) {
+                    button_E.BackColor = Color.White;
+                }
+                else {
+                    button_E.BackColor = Color.Cyan;
+                    //Console.Beep(330, 400); //Note E, quarter note
+                    playerE.Play();
+                }
+                if (Pushbutton4Pressed == false) {
+                    button_G.BackColor = Color.White;
+                }
+                else {
+                    button_G.BackColor = Color.Cyan;
+                    //Console.Beep(392, 400); //Note G, quarter note
+                    playerG.Play();
+                }
+
                 //Update the ANxx/POT Voltage indicator value (progressbar)
                 progressBar1.Value = (int)ADCValue;
             }
@@ -913,6 +954,11 @@ namespace HID_PnP_Demo
         }
 
         private void progressBar1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
         {
 
         }
