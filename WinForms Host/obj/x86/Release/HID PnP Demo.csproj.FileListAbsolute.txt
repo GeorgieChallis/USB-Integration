@@ -28,3 +28,13 @@ C:\Users\gchal\Downloads\USB-Integration-Cwk-master\USB-Integration-Cwk-master\W
 C:\Users\gchal\Downloads\USB-Integration-Cwk-master\USB-Integration-Cwk-master\WinForms Host\obj\x86\Release\HID PnP Demo.csproj.CoreCompileInputs.cache
 C:\Users\gchal\Downloads\USB-Integration-Cwk-master\USB-Integration-Cwk-master\WinForms Host\obj\x86\Release\HID PnP Demo.exe
 C:\Users\gchal\Downloads\USB-Integration-Cwk-master\USB-Integration-Cwk-master\WinForms Host\obj\x86\Release\HID PnP Demo.pdb
+C:\Users\gchal\Downloads\USB-Integration-Cwk-master (1)\USB-Integration-Cwk-master\WinForms Host\bin\x86\Release\HID PnP Demo.exe.config
+C:\Users\gchal\Downloads\USB-Integration-Cwk-master (1)\USB-Integration-Cwk-master\WinForms Host\bin\x86\Release\HID PnP Demo.exe
+C:\Users\gchal\Downloads\USB-Integration-Cwk-master (1)\USB-Integration-Cwk-master\WinForms Host\bin\x86\Release\HID PnP Demo.pdb
+C:\Users\gchal\Downloads\USB-Integration-Cwk-master (1)\USB-Integration-Cwk-master\WinForms Host\obj\x86\Release\HID PnP Demo.csprojAssemblyReference.cache
+C:\Users\gchal\Downloads\USB-Integration-Cwk-master (1)\USB-Integration-Cwk-master\WinForms Host\obj\x86\Release\HID_PnP_Demo.Form1.resources
+C:\Users\gchal\Downloads\USB-Integration-Cwk-master (1)\USB-Integration-Cwk-master\WinForms Host\obj\x86\Release\HID_PnP_Demo.Properties.Resources.resources
+C:\Users\gchal\Downloads\USB-Integration-Cwk-master (1)\USB-Integration-Cwk-master\WinForms Host\obj\x86\Release\HID PnP Demo.csproj.GenerateResource.cache
+C:\Users\gchal\Downloads\USB-Integration-Cwk-master (1)\USB-Integration-Cwk-master\WinForms Host\obj\x86\Release\HID PnP Demo.csproj.CoreCompileInputs.cache
+C:\Users\gchal\Downloads\USB-Integration-Cwk-master (1)\USB-Integration-Cwk-master\WinForms Host\obj\x86\Release\HID PnP Demo.exe
+C:\Users\gchal\Downloads\USB-Integration-Cwk-master (1)\USB-Integration-Cwk-master\WinForms Host\obj\x86\Release\HID PnP Demo.pdb

@@ -284,21 +284,7 @@ namespace HID_PnP_Demo
 	    uint ADCValue = 0;          //Updated by ReadWriteThread, read by FormUpdateTimer tick handler (needs to be atomic)
 
 
-        static string soundLocationC = Path.GetFullPath("Properties/C.wav"); 
-        SoundPlayer playerC = new SoundPlayer(soundLocationC);
-
-        static string soundLocationD = Path.GetFullPath("Properties/D.wav");
-        SoundPlayer playerD = new SoundPlayer(soundLocationD);
-
-        static string soundLocationE = Path.GetFullPath("Properties/E.wav"); 
-        SoundPlayer playerE = new SoundPlayer(soundLocationE);
-
-        static string soundLocationG = Path.GetFullPath("Properties/G.wav");
-        SoundPlayer playerG = new SoundPlayer(soundLocationG);
-
-
-
-
+        
 
         //Globally Unique Identifier (GUID) for HID class devices.  Windows uses GUIDs to identify things.
         Guid InterfaceClassGuid = new Guid(0x4d1e55b2, 0xf16f, 0x11cf, 0x88, 0xcb, 0x00, 0x11, 0x11, 0x00, 0x00, 0x30); 
@@ -859,7 +845,12 @@ namespace HID_PnP_Demo
             //Update the various status indicators on the form with the latest info obtained from the ReadWriteThread()
             if (AttachedState == true)
             {
+                MusicScale chosenScale = new MusicScale((int)ADCValue);
+                Note chosenNote = new Note(0, 0);
+                
                 // Beeps: https://docs.microsoft.com/en-us/dotnet/api/system.console.beep?view=netframework-4.7.2
+
+                Console.WriteLine(PushbuttonPressed + "\t" + Pushbutton2Pressed + "\t" + Pushbutton3Pressed + "\t" + Pushbutton4Pressed);
                 //Update the pushbutton state label.
                 if (PushbuttonPressed == false) {
                     button_C.BackColor = Color.White;
@@ -867,8 +858,8 @@ namespace HID_PnP_Demo
                 else {
                     button_C.BackColor = Color.Cyan;
                     //set audio stream to note 1
-                    playerC.Play();
-                    //Console.Beep(262, 400); //Note C, quarter note
+                    
+                    Console.Beep((int)Tone.C1, 300); //Note C, quarter note
                 }	
 
                 if (Pushbutton2Pressed == false) {
@@ -877,16 +868,14 @@ namespace HID_PnP_Demo
                 else {
                     button_D.BackColor = Color.Cyan;
                     //set audio stream to note 2
-                    playerD.Play();
-                    //Console.Beep(294, 400); //Note D, quarter note
+                    Console.Beep((int)Tone.C2, 300); //Note C, quarter note
                 }
                 if (Pushbutton3Pressed == false) {
                     button_E.BackColor = Color.White;
                 }
                 else {
                     button_E.BackColor = Color.Cyan;
-                    //Console.Beep(330, 400); //Note E, quarter note
-                    playerE.Play();
+                    Console.Beep((int)Tone.C3, 300); //Note C, quarter note
                 }
                 if (Pushbutton4Pressed == false) {
                     button_G.BackColor = Color.White;
@@ -894,8 +883,10 @@ namespace HID_PnP_Demo
                 else {
                     button_G.BackColor = Color.Cyan;
                     //Console.Beep(392, 400); //Note G, quarter note
-                    playerG.Play();
+                    Console.Beep((int)Tone.C4, 300); //Note C, quarter note
                 }
+
+                Thread.Sleep(100);
 
                 //Update the ANxx/POT Voltage indicator value (progressbar)
                 progressBar1.Value = (int)ADCValue;
