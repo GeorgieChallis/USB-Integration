@@ -94,6 +94,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.IO;
 using System.Media;
+using System.Linq;
 
 
 namespace HID_PnP_Demo
@@ -283,8 +284,8 @@ namespace HID_PnP_Demo
         bool ToggleLEDsPending = false;		//Updated by ToggleLED(s) button click event handler, used by ReadWriteThread (needs to be atomic)
 	    uint ADCValue = 0;          //Updated by ReadWriteThread, read by FormUpdateTimer tick handler (needs to be atomic)
 
+        SoundPlayer soundplayer;
 
-        
 
         //Globally Unique Identifier (GUID) for HID class devices.  Windows uses GUIDs to identify things.
         Guid InterfaceClassGuid = new Guid(0x4d1e55b2, 0xf16f, 0x11cf, 0x88, 0xcb, 0x00, 0x11, 0x11, 0x00, 0x00, 0x30); 
@@ -305,9 +306,9 @@ namespace HID_PnP_Demo
 			//Additional constructor code
 
             //Initialize tool tips, to provide pop up help when the mouse cursor is moved over objects on the form.
-            ANxVoltageToolTip.SetToolTip(this.ANxVoltage_lbl, "If using a board/PIM without a potentiometer, apply an adjustable voltage to the I/O pin.");
-            ANxVoltageToolTip.SetToolTip(this.progressBar1, "If using a board/PIM without a potentiometer, apply an adjustable voltage to the I/O pin.");
-            ToggleLEDToolTip.SetToolTip(this.ToggleLEDs_btn, "Sends a packet of data to the USB device.");
+            ANxVoltageToolTip.SetToolTip(this.ANxVoltage_lbl, "Turn the potentiometer to change the notes available on button presses.");
+            ANxVoltageToolTip.SetToolTip(this.progressBar1, "Turn the potentiometer to change the notes available on button presses.");
+          //  ToggleLEDToolTip.SetToolTip(this.ToggleLEDs_btn, "Sends a packet of data to the USB device.");
          //   PushbuttonStateTooltip.SetToolTip(this.PushbuttonState_lbl, "Try pressing pushbuttons on the USB demo board/PIM.");
 
             //Register for WM_DEVICECHANGE notifications.  This code uses these messages to detect plug and play connection/disconnection events for USB devices
@@ -736,12 +737,6 @@ namespace HID_PnP_Demo
                         OUTBuffer[0] = 0;   //The first byte is the "Report ID" and does not get sent over the USB bus.  Always set = 0.
 
                         OUTBuffer[1] = 0x81; //0x81 is the "Get Pushbutton State" command in the firmware
-
-                    //    OUTBuffer[2] = 0x82;
-                       
-                     //   OUTBuffer[3] = 0x83;
-
-                    //    OUTBuffer[4] = 0x84;
                         
                         for (uint i = 2; i < 65; i++)	//This loop is not strictly necessary.  Simply initializes unused bytes to
                             OUTBuffer[i] = 0xFF;				//0xFF for lower EMI and power consumption when driving the USB cable.
@@ -793,7 +788,7 @@ namespace HID_PnP_Demo
                     } //end of: if(AttachedState == true)
                     else
                     {
-                        Thread.Sleep(5);	//Add a small delay.  Otherwise, this while(true) loop can execute very fast and cause 
+                       Thread.Sleep(5);	//Add a small delay.  Otherwise, this while(true) loop can execute very fast and cause 
                                             //high CPU utilization, with no particular benefit to the application.
                     }
                 }
@@ -829,7 +824,6 @@ namespace HID_PnP_Demo
                 //Device is connected and ready to communicate, enable user interface on the form 
                 StatusBox_txtbx.Text = "Device Found: AttachedState = TRUE";
                 ANxVoltage_lbl.Enabled = true;
-                ToggleLEDs_btn.Enabled = true;
             }
             if ((AttachedState == false) || (AttachedButBroken == true))
             {
@@ -837,7 +831,6 @@ namespace HID_PnP_Demo
                 StatusBox_txtbx.Text = "Device Not Detected: Verify Connection/Correct Firmware";
                 //Make the label no longer greyed out
                 ANxVoltage_lbl.Enabled = false;
-                ToggleLEDs_btn.Enabled = false;
                 ADCValue = 0;
                 progressBar1.Value = 0;
             }
@@ -845,51 +838,81 @@ namespace HID_PnP_Demo
             //Update the various status indicators on the form with the latest info obtained from the ReadWriteThread()
             if (AttachedState == true)
             {
-                MusicScale chosenScale = new MusicScale((int)ADCValue);
-                Note chosenNote = new Note(0, 0);
-                
-                // Beeps: https://docs.microsoft.com/en-us/dotnet/api/system.console.beep?view=netframework-4.7.2
 
-                Console.WriteLine(PushbuttonPressed + "\t" + Pushbutton2Pressed + "\t" + Pushbutton3Pressed + "\t" + Pushbutton4Pressed);
-                //Update the pushbutton state label.
-                if (PushbuttonPressed == false) {
-                    button_C.BackColor = Color.White;
-                }	
-                else {
-                    button_C.BackColor = Color.Cyan;
-                    //set audio stream to note 1
-                    
-                    Console.Beep((int)Tone.C1, 300); //Note C, quarter note
-                }	
+                if (ADCValue < 820)
+                {
 
-                if (Pushbutton2Pressed == false) {
-                    button_D.BackColor = Color.White;
-                }
-                else {
-                    button_D.BackColor = Color.Cyan;
-                    //set audio stream to note 2
-                    Console.Beep((int)Tone.C2, 300); //Note C, quarter note
-                }
-                if (Pushbutton3Pressed == false) {
-                    button_E.BackColor = Color.White;
-                }
-                else {
-                    button_E.BackColor = Color.Cyan;
-                    Console.Beep((int)Tone.C3, 300); //Note C, quarter note
-                }
-                if (Pushbutton4Pressed == false) {
-                    button_G.BackColor = Color.White;
-                }
-                else {
-                    button_G.BackColor = Color.Cyan;
-                    //Console.Beep(392, 400); //Note G, quarter note
-                    Console.Beep((int)Tone.C4, 300); //Note C, quarter note
-                }
+                    MusicScale chosenScale = new MusicScale((int)ADCValue);
+                    Note chosenNote;
+                    ANxVoltage_lbl.Text = "Note frequencies (Hz): " + chosenScale.Notes[0].tone.ToString() + ", " + chosenScale.Notes[1].tone.ToString() + ", " + chosenScale.Notes[2].tone.ToString() + ", " + chosenScale.Notes[3].tone.ToString();
 
-                Thread.Sleep(100);
+                    // Beeps: https://docs.microsoft.com/en-us/dotnet/api/system.console.beep?view=netframework-4.7.2
+
+                    foreach (var b in this.Controls.OfType<Button>()) { b.Visible = true; }
+                    Console.WriteLine(PushbuttonPressed + "\t" + Pushbutton2Pressed + "\t" + Pushbutton3Pressed + "\t" + Pushbutton4Pressed);
+                    //Update the pushbutton state label.
+                    if (PushbuttonPressed == false)
+                    {
+                        button_C.BackColor = Color.White;
+                    }
+                    else
+                    {
+                        button_C.BackColor = Color.Cyan;
+                        //if (alternate % 2 == 0)
+                        { chosenNote = chosenScale.Notes[0]; }
+                        //else { chosenNote = chosenScale.Notes[4]; }
+                        Console.Beep(chosenNote.tone, chosenNote.duration); //Note C, quarter note
+                                                                            //            alternate++;
+                    }
+
+                    if (Pushbutton2Pressed == false)
+                    {
+                        button_D.BackColor = Color.White;
+                    }
+                    else
+                    {
+                        button_D.BackColor = Color.Cyan;
+                        chosenNote = chosenScale.Notes[1];
+                        Console.Beep(chosenNote.tone, chosenNote.duration); //Note C, quarter note
+                    }
+                    if (Pushbutton3Pressed == false)
+                    {
+                        button_E.BackColor = Color.White;
+                    }
+                    else
+                    {
+                        button_E.BackColor = Color.Cyan;
+                        chosenNote = chosenScale.Notes[2];
+                        Console.Beep(chosenNote.tone, chosenNote.duration); //Note C, quarter note
+                    }
+                    if (Pushbutton4Pressed == false)
+                    {
+                        button_F.BackColor = Color.White;
+                    }
+                    else
+                    {
+                        button_F.BackColor = Color.Cyan;
+                        chosenNote = chosenScale.Notes[3];
+                        Console.Beep(chosenNote.tone, chosenNote.duration); //Note C, quarter note
+                    }
+                }
+                else {
+                    foreach (var b in this.Controls.OfType<Button>()) { b.Visible = false; }
+                    ANxVoltage_lbl.Text = "Sounds: Snap, Tom, Kick, Snare";
+                    string audioFile ="NULL";
+                    if (PushbuttonPressed) { audioFile = Path.GetFullPath("Properties/6.wav"); }
+                    else if (Pushbutton2Pressed) { audioFile = Path.GetFullPath("Properties/2.wav"); }
+                    else if (Pushbutton3Pressed) { audioFile = Path.GetFullPath("Properties/3.wav"); }
+                    else if (Pushbutton4Pressed) { audioFile = Path.GetFullPath("Properties/7.wav"); }
+                    else return;
+                    soundplayer = new SoundPlayer(audioFile);
+                    soundplayer.PlaySync();
+                }
+                Thread.Sleep(30);
 
                 //Update the ANxx/POT Voltage indicator value (progressbar)
                 progressBar1.Value = (int)ADCValue;
+                Console.WriteLine(ADCValue);
             }
             //-------------------------------------------------------END CUT AND PASTE BLOCK-------------------------------------------------------------------------------------
             //-------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -950,6 +973,11 @@ namespace HID_PnP_Demo
         }
 
         private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ANxVoltageToolTip_Popup(object sender, PopupEventArgs e)
         {
 
         }

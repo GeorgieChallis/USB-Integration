@@ -29,7 +29,6 @@ namespace HID_PnP_Demo
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.ToggleLEDs_btn = new System.Windows.Forms.Button();
             this.ANxVoltage_lbl = new System.Windows.Forms.Label();
             this.StatusBox_lbl = new System.Windows.Forms.Label();
             this.StatusBox_txtbx = new System.Windows.Forms.TextBox();
@@ -55,30 +54,17 @@ namespace HID_PnP_Demo
             this.button_Bb = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // ToggleLEDs_btn
-            // 
-            this.ToggleLEDs_btn.Enabled = false;
-            this.ToggleLEDs_btn.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ToggleLEDs_btn.Location = new System.Drawing.Point(530, 610);
-            this.ToggleLEDs_btn.Margin = new System.Windows.Forms.Padding(6);
-            this.ToggleLEDs_btn.Name = "ToggleLEDs_btn";
-            this.ToggleLEDs_btn.Size = new System.Drawing.Size(192, 44);
-            this.ToggleLEDs_btn.TabIndex = 24;
-            this.ToggleLEDs_btn.Text = "ToggleLED(s)";
-            this.ToggleLEDs_btn.UseVisualStyleBackColor = true;
-            this.ToggleLEDs_btn.Click += new System.EventHandler(this.ToggleLEDs_btn_Click);
-            // 
             // ANxVoltage_lbl
             // 
             this.ANxVoltage_lbl.AutoSize = true;
             this.ANxVoltage_lbl.Enabled = false;
             this.ANxVoltage_lbl.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.ANxVoltage_lbl.Location = new System.Drawing.Point(24, 579);
+            this.ANxVoltage_lbl.Location = new System.Drawing.Point(247, 498);
             this.ANxVoltage_lbl.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.ANxVoltage_lbl.Name = "ANxVoltage_lbl";
-            this.ANxVoltage_lbl.Size = new System.Drawing.Size(180, 25);
+            this.ANxVoltage_lbl.Size = new System.Drawing.Size(80, 25);
             this.ANxVoltage_lbl.TabIndex = 23;
-            this.ANxVoltage_lbl.Text = "ANx/POT Voltage";
+            this.ANxVoltage_lbl.Text = "Notes: ";
             // 
             // StatusBox_lbl
             // 
@@ -104,15 +90,14 @@ namespace HID_PnP_Demo
             // 
             // progressBar1
             // 
-            this.progressBar1.BackColor = System.Drawing.Color.White;
-            this.progressBar1.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            this.progressBar1.Location = new System.Drawing.Point(30, 610);
+            this.progressBar1.BackColor = System.Drawing.SystemColors.WindowFrame;
+            this.progressBar1.ForeColor = System.Drawing.Color.Coral;
+            this.progressBar1.Location = new System.Drawing.Point(130, 559);
             this.progressBar1.Margin = new System.Windows.Forms.Padding(6);
             this.progressBar1.Maximum = 1024;
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(406, 44);
-            this.progressBar1.Step = 1;
-            this.progressBar1.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
+            this.progressBar1.Step = 205;
             this.progressBar1.TabIndex = 20;
             this.progressBar1.Click += new System.EventHandler(this.progressBar1_Click);
             // 
@@ -133,6 +118,7 @@ namespace HID_PnP_Demo
             this.ANxVoltageToolTip.AutoPopDelay = 20000;
             this.ANxVoltageToolTip.InitialDelay = 15;
             this.ANxVoltageToolTip.ReshowDelay = 15;
+            this.ANxVoltageToolTip.Popup += new System.Windows.Forms.PopupEventHandler(this.ANxVoltageToolTip_Popup);
             // 
             // ToggleLEDToolTip
             // 
@@ -275,7 +261,7 @@ namespace HID_PnP_Demo
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(732, 677);
+            this.ClientSize = new System.Drawing.Size(713, 537);
             this.Controls.Add(this.button_Bb);
             this.Controls.Add(this.button_Gs);
             this.Controls.Add(this.button_Fs);
@@ -288,7 +274,6 @@ namespace HID_PnP_Demo
             this.Controls.Add(this.button_E);
             this.Controls.Add(this.button_D);
             this.Controls.Add(this.button_C);
-            this.Controls.Add(this.ToggleLEDs_btn);
             this.Controls.Add(this.ANxVoltage_lbl);
             this.Controls.Add(this.StatusBox_lbl);
             this.Controls.Add(this.StatusBox_txtbx);
@@ -302,7 +287,6 @@ namespace HID_PnP_Demo
         }
 
         #endregion
-        private System.Windows.Forms.Button ToggleLEDs_btn;
         private System.Windows.Forms.Label ANxVoltage_lbl;
         private System.Windows.Forms.Label StatusBox_lbl;
         private System.Windows.Forms.TextBox StatusBox_txtbx;
