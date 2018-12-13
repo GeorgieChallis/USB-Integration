@@ -849,6 +849,8 @@ namespace HID_PnP_Demo
                     // Beeps: https://docs.microsoft.com/en-us/dotnet/api/system.console.beep?view=netframework-4.7.2
 
                     foreach (var b in this.Controls.OfType<Button>()) { b.Visible = true; }
+                    pictureBox1.Visible = false;
+
                     Console.WriteLine(PushbuttonPressed + "\t" + Pushbutton2Pressed + "\t" + Pushbutton3Pressed + "\t" + Pushbutton4Pressed);
                     //Update the pushbutton state label.
                     if (PushbuttonPressed == false)
@@ -897,7 +899,9 @@ namespace HID_PnP_Demo
                     }
                 }
                 else {
-                    foreach (var b in this.Controls.OfType<Button>()) { b.Visible = false; }
+                    foreach (var b in this.Controls.OfType<Button>()) { b.Visible = true; }
+                    pictureBox1.Visible = true;
+
                     ANxVoltage_lbl.Text = "Sounds: Snap, Tom, Kick, Snare";
                     string audioFile ="NULL";
                     if (PushbuttonPressed) { audioFile = Path.GetFullPath("Properties/6.wav"); }
@@ -978,6 +982,11 @@ namespace HID_PnP_Demo
         }
 
         private void ANxVoltageToolTip_Popup(object sender, PopupEventArgs e)
+        {
+
+        }
+
+        private void pictureBox1_Click_1(object sender, EventArgs e)
         {
 
         }

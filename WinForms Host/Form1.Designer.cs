@@ -29,6 +29,7 @@ namespace HID_PnP_Demo
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.ANxVoltage_lbl = new System.Windows.Forms.Label();
             this.StatusBox_lbl = new System.Windows.Forms.Label();
             this.StatusBox_txtbx = new System.Windows.Forms.TextBox();
@@ -52,6 +53,8 @@ namespace HID_PnP_Demo
             this.button_Fs = new System.Windows.Forms.Button();
             this.button_Gs = new System.Windows.Forms.Button();
             this.button_Bb = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // ANxVoltage_lbl
@@ -73,9 +76,8 @@ namespace HID_PnP_Demo
             this.StatusBox_lbl.Location = new System.Drawing.Point(632, 29);
             this.StatusBox_lbl.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.StatusBox_lbl.Name = "StatusBox_lbl";
-            this.StatusBox_lbl.Size = new System.Drawing.Size(73, 25);
+            this.StatusBox_lbl.Size = new System.Drawing.Size(0, 25);
             this.StatusBox_lbl.TabIndex = 22;
-            this.StatusBox_lbl.Text = "Status";
             // 
             // StatusBox_txtbx
             // 
@@ -256,12 +258,26 @@ namespace HID_PnP_Demo
             this.button_Bb.TabIndex = 41;
             this.button_Bb.UseVisualStyleBackColor = false;
             // 
+            // pictureBox1
+            // 
+            this.pictureBox1.BackColor = System.Drawing.Color.Transparent;
+            this.pictureBox1.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.BackgroundImage")));
+            this.pictureBox1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pictureBox1.Location = new System.Drawing.Point(34, 93);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(570, 388);
+            this.pictureBox1.TabIndex = 42;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Visible = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click_1);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.ClientSize = new System.Drawing.Size(713, 537);
+            this.ClientSize = new System.Drawing.Size(645, 537);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.button_Bb);
             this.Controls.Add(this.button_Gs);
             this.Controls.Add(this.button_Fs);
@@ -281,6 +297,7 @@ namespace HID_PnP_Demo
             this.Margin = new System.Windows.Forms.Padding(6);
             this.Name = "Form1";
             this.Text = "HID PnP Demo";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -310,6 +327,7 @@ namespace HID_PnP_Demo
         private System.Windows.Forms.Button button_Fs;
         private System.Windows.Forms.Button button_Gs;
         private System.Windows.Forms.Button button_Bb;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 
