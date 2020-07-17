@@ -1,5 +1,8 @@
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
-//-------------------------------------------------------BEGIN CUT AND PASTE BLOCK-----------------------------------------------------------------------------------
+// Majority of code written specifically for the music HID can be found in:
+// 1. FormUpdateTimer_Tick()
+// 2. ReadWriteThread_DoWork()
+
+
 /********************************************************************
  FileName:		Form1.cs
  Dependencies:	When compiled, needs .NET framework 2.0 redistributable to run.
@@ -76,10 +79,6 @@ NOTE:	All user made code contained in this project is in the Form1.cs file.
 //"Active solution platform:" drop down box, select "x86".  If this option does
 //not appear, select: "<New...>" and then select the x86 option in the 
 //"Type or select the new platform:" drop down box.  
-
-//-------------------------------------------------------END CUT AND PASTE BLOCK-------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 
 
 using System;
