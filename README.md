@@ -6,7 +6,7 @@ music making. This basic prototype could easily be built upon further in many au
 ## 1. Introduction
 The aim of this project was to create a new "product" based on the Human Interface Device (HID) demo code available for the Explorer 16 development board. 
 
-Inspired by the “reach out and touch” audio devices in Nicolas Collins’ 2006 book ‘Homemade Electronic Music: The Art of Hardware Hacking’[1][1], the on-board buttons and potentiometer were used to create a USB controller that can be used to generate different sounds in a PC application.
+Inspired by the “reach out and touch” audio devices in Nicolas Collins’ 2006 book ‘Homemade Electronic Music: The Art of Hardware Hacking’[1](1), the on-board buttons and potentiometer were used to create a USB controller that can be used to generate different sounds in a PC application.
 
 Reference software from Microchip was used to implement a 2-way interface between the peripheral and a host PC, using sample code device firmware and a basic host application as a framework was built upon to create a new solution.
 
@@ -29,7 +29,7 @@ In order to operate as a simple input device for audio, the peripheral and appli
 Reasonable response speeds should be considered when testing the product to avoid a jarring user experience, but speeds matching real devices on the market are not expected for an initial attempt.
 
 # 3. Existing Functionality
-The Explorer board includes a number of different user interaction components. These include 4 push buttons and a potentiometer for user inputs and an LCD screen and LEDs for visual output [2][2]. The configuration used for this project includes a PIC32 Plug-In Module (PIM) which can be programmed with firmware to handle interaction and processing, and a PICtail Plus expansion board to communicate with a host computer via USB cable, as seen in Figure 1 below.
+The Explorer board includes a number of different user interaction components. These include 4 push buttons and a potentiometer for user inputs and an LCD screen and LEDs for visual output (2)[2]. The configuration used for this project includes a PIC32 Plug-In Module (PIM) which can be programmed with firmware to handle interaction and processing, and a PICtail Plus expansion board to communicate with a host computer via USB cable, as seen in Figure 1 below.
 
 
 
@@ -103,39 +103,39 @@ The label in the bottom right of the window shows the frequencies of notes in th
 The status bar at the top of the window has been borrowed from the original demo GUI and shows the connectivity state of the Explorer board. If the device is plugged in and operating correctly, the bar should read “Device Found: AttachedState = TRUE”. If the board cannot be found or is failing to communicate, this will read “Device Not Detected: Verify Connection/Correct Firmware”.
 
 # References
-[1] N. Collins, Homemade Electronic Music: The Art of Hardware Hacking, 2nd ed. New York:
+[1]: N. Collins, Homemade Electronic Music: The Art of Hardware Hacking, 2nd ed. New York:
 Routledge, 2006.
 
-[2] Microchip (2014). Explorer 16 Development Board User’s Guide [Online] Available:
+[2]: Microchip (2014). Explorer 16 Development Board User’s Guide [Online] Available:
 http://ww1.microchip.com/downloads/en/devicedoc/50001589b.pdf
 
-[3] Microchip (2018). USB Endpoints [Online] Available:
+[3]: Microchip (2018). USB Endpoints [Online] Available:
 http://microchipdeveloper.com/usb:endpoints
 
-[4] Microsoft. .NET API Browser | Console.Beep Method [Online] Available:
+[4]: Microsoft. .NET API Browser | Console.Beep Method [Online] Available:
 https://docs.microsoft.com/en-us/dotnet/api/system.console.beep?view=netframework-4.7.2
 
-[5] Microsoft. .NET API Browser | SoundPlayer Class [Online] Available:
+[5]: Microsoft. .NET API Browser | SoundPlayer Class [Online] Available:
 https://docs.microsoft.com/en-us/dotnet/api/system.media.soundplayer?view=netframework4.7.2
 
-[6] M. Heath (2008, Jun) Introducing NAudio - .NET Audio Toolkit [Online] Available:
+[6]: M. Heath (2008, Jun) Introducing NAudio - .NET Audio Toolkit [Online] Available:
 https://markheath.net/post/introducing-naudio-net-audio-toolkit
 
-[7] J. Slobodov Universal Serial Bus (USB) [Online] Available:
+[7]: J. Slobodov Universal Serial Bus (USB) [Online] Available:
 http://www.ece.ualberta.ca/~elliott/ee552/studentAppNotes/2001f/interfacing/usb/appl_note.
 html
 
-[8] B. G. Schultz (2018). The Schultz MIDI Benchmarking Toolbox for MIDI interfaces,
+[8]: B. G. Schultz (2018). The Schultz MIDI Benchmarking Toolbox for MIDI interfaces,
 percussion pads and sound cards [Online] Available:
 https://link.springer.com/content/pdf/10.3758%2Fs13428-018-1042-7.pdf
 
-[9] Ableton (2018). Push: Music at your Fingertips [Online] Available:
+[9]: Ableton (2018). Push: Music at your Fingertips [Online] Available:
 https://www.ableton.com/en/push/
 
-[10] MI.MU Gloves Ltd. (2018). MI.MU: Tech [Online] Available:
+[10]: MI.MU Gloves Ltd. (2018). MI.MU: Tech [Online] Available:
 https://mimugloves.com/tech/
 
-[11] J. Hass, Indiana University (2017) How does the MIDI system work? [Online] Available:
+[11]: J. Hass, Indiana University (2017) How does the MIDI system work? [Online] Available:
 http://www.indiana.edu/~emusic/etext/MIDI/chapter3_MIDI13.shtml
 
 All web addresses referred to here were last verified on 30th January 2019.
