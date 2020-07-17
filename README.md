@@ -6,7 +6,7 @@ music making. This basic prototype could easily be built upon further in many au
 ## 1. Introduction
 The aim of this project was to create a new "product" based on the Human Interface Device (HID) demo code available for the Explorer 16 development board. 
 
-Inspired by the “reach out and touch” audio devices in Nicolas Collins’ 2006 book ‘Homemade Electronic Music: The Art of Hardware Hacking’ ([1][1]), the on-board buttons and potentiometer were used to create a USB controller that can be used to generate different sounds in a PC application.
+Inspired by the “reach out and touch” audio devices in Nicolas Collins’ 2006 book ‘Homemade Electronic Music: The Art of Hardware Hacking’ [1][#1], the on-board buttons and potentiometer were used to create a USB controller that can be used to generate different sounds in a PC application.
 
 Reference software from Microchip was used to implement a 2-way interface between the peripheral and a host PC, using sample code device firmware and a basic host application as a framework was built upon to create a new solution.
 
