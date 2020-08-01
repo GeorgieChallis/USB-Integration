@@ -91,13 +91,4 @@ html
 percussion pads and sound cards [Online] Available:
 https://link.springer.com/content/pdf/10.3758%2Fs13428-018-1042-7.pdf
 
-[9] Ableton (2018). Push: Music at your Fingertips [Online] Available:
-https://www.ableton.com/en/push/
-
-[10] MI.MU Gloves Ltd. (2018). MI.MU: Tech [Online] Available:
-https://mimugloves.com/tech/
-
-[11] J. Hass, Indiana University (2017) How does the MIDI system work? [Online] Available:
-http://www.indiana.edu/~emusic/etext/MIDI/chapter3_MIDI13.shtml
-
 _All web addresses referred to here were last verified on 30th January 2019._
